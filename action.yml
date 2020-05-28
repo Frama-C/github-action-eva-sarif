@@ -1,0 +1,31 @@
+# action.yml
+name: 'Frama-C-Eva'
+description: 'Sound analysis of C code with the open-source platform Frama-C: exhaustively list possible runtime errors'
+branding:
+  icon: 'facebook'
+  color: 'orange'
+inputs:
+  fc-dir:
+    description: 'Directory containing the Frama-C makefile (default: .frama-c)'
+    required: false
+    default: '.frama-c'
+  fc-makefile:
+    description: 'Makefile for Frama-C (must be inside [fc-dir])'
+    required: false
+    default: 'GNUmakefile'
+  eva-target:
+    description: 'Name of the Eva target in the makefile'
+    required: true
+    default: 'main.eva'
+outputs:
+  alarm-count:
+    description: 'Number of alarms reported by Eva'
+  coverage:
+    description: 'Eva coverage estimation (%)'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.fc-dir }}
+    - ${{ inputs.fc-makefile }}
+    - ${{ inputs.eva-target }}
