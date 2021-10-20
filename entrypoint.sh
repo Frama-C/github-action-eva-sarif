@@ -30,7 +30,7 @@ make -C "$fc_dir" -f "$fc_makefile" "${target}.eva"
 
 # output Eva summary
 cd "$fc_dir"
-summary=$(mktemp eva_summary_XXX.log)
+summary=$(mktemp eva_summary.log.XXXXXX)
 sed -n -e '/====== ANALYSIS SUMMARY ======/,/\[metrics\] Eva coverage statistics/{/\[metrics\] Eva coverage statistics/!p}' "${target}.eva/eva.log" > $summary
 
 alarm_count=$(wc -l "${target}.eva/alarms.csv" | cut -d' ' -f1)
